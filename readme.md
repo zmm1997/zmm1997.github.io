@@ -1,1 +1,1 @@
-<a href="project/project.html" target="_blank">项目展示</a>
+点击proje.html文件查看项目展示
