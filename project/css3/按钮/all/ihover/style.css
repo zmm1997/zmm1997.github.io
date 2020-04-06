@@ -1,0 +1,51 @@
+.box {
+  margin: 50px auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  position: relative;
+}
+.picture {
+  width: 200px;
+  height: 200px;
+  left: 10px;
+  top: 10px;
+  position: absolute;
+}
+.picture img {
+  width: 100%;
+  border-radius: 50%;
+}
+.color {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 10px solid orange;
+  border-bottom: 10px solid lightgreen;
+  border-right: 10px solid lightgreen;
+  transition: all 1s ease-in-out;
+}
+.box:hover .color {
+  transform: rotateZ(180deg);
+}
+.text {
+  position: absolute;
+}
+.text h3 {
+  padding-top: 40px;
+  padding-left: 30px;
+  height: 30px;
+  font-size: 22px;
+  color: white;
+}
+.text hr {
+  margin-left: 30px;
+  border-color: white;
+}
+.text p {
+  padding-left: 28px;
+  font-size: 16px;
+  color: white;
+}
+/*# sourceMappingURL=./style.css.map */

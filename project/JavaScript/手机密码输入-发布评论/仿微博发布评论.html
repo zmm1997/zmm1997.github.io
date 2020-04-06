@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#body{position: relative;}
+			.main{
+				width: 800px;
+				margin:20px auto;
+				position: relative;
+			}
+			span{
+				display: inline-block;
+				width: 300px;
+				height: 30px;
+				line-height: 30px;
+				font-size: 25px;
+				text-align: left;
+				margin-bottom: 10px;
+			}
+			.text{
+				width: 750px;
+				height: 280px;
+				margin:0 auto;
+				resize:none;
+				font-family: 微软雅黑;
+				font-size: 25px;
+			}
+			input{
+				display: inline-block;
+				width: 80px;
+				height: 50px;
+				background: #ffaa7f;
+				border: 1px solid black;
+				margin-left: 670px;
+				margin-top: 10px;
+				cursor: pointer;
+				font-family: 微软雅黑;
+				font-size: 20px;
+			}
+			#limit{width: 30px;height: 20px;font-size: 18px;}
+			
+			.creatediv{
+				width: 675px;
+				height: 80px;
+				border: 1px solid gray;
+				position: relative;
+				margin-top: 30px;
+				padding-left: 75px;
+			}
+			.createdivs{
+				width:600px;
+				height:50px;
+				position: absolute;
+				top: 15px;
+				left: 85px;
+				text-align: left;
+				margin-left: 10px;
+			}
+			.createinput{
+				width: 80px;
+				height: 30px;
+				position:absolute;
+				right: 5px;
+				bottom:5px;
+				text-align: center;
+			}
+			.createimg{
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				top: 0px;
+				left: -75px;
+				border-radius: 50%;
+				background: url(pic.jpg);
+			}
+			.content{width: 500px;height: 50px;text-align: left;line-height: 50px;}
+		</style>
+	</head>
+	<body id="body">
+		<div class="main">
+			<span>你想对楼主说点什么</span>
+			<textarea id="text" cols="30" rows="10" maxlength="30" class="text" onkeyup="word(this.value)"></textarea>
+			<div id="limit">0/30</div>
+			<br>
+			<input type="button" value="发 表" id="send">
+			<div id="txt" >
+			<!-- 
+				需要建立
+				<div class="creatediv">
+					<div class="createdivs">
+						<div class="content">111</div>
+						<input class="createinput" type="button" value="删除"/>
+						<div class="createimg"></div>
+					</div>
+				</div> 
+			-->
+			</div>
+		</div>
+		
+		<script>
+			var textarea=document.getElementById('text')
+			var send=document.getElementById('send')
+			var txt=document.getElementById('txt')
+			
+			//字数显示
+			var limit=document.getElementById('limit')
+			function word(){
+				var num=textarea.value.length
+				limit.innerHTML=num+'/30'
+			}
+			
+			//发表
+			send.onclick=function(){
+				var str=textarea.value.trim()
+				if(str==''){
+					alert('内容为空')
+				}else{
+					//显示发表内容
+					var div1=document.createElement('div')
+					div1.className='creatediv'
+					txt.appendChild(div1)
+					
+					var div2=document.createElement('div')
+					div2.className='createdivs'
+					div1.appendChild(div2)
+					
+					var div3=document.createElement('div')
+					div3.className='content'
+					div3.innerHTML=str
+					div2.appendChild(div3)
+					
+					var input=document.createElement('input')
+					input.className='createinput'
+					input.value='删除'
+					div2.appendChild(input)
+					
+					var div3=document.createElement('div')
+					div3.className='createimg'
+					div2.appendChild(div3)
+					
+					textarea.value=''
+					var num=textarea.value.length
+					limit.innerHTML=num+'/30'
+					
+					//删除键绑定事件
+					input.onclick=function(){
+						//console.log(this.parentNode.parentNode.parentNode)
+						this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)
+						
+						//删除缓存
+						//console.log(JSON.parse(content))
+						//console.log(this.previousSibling.innerHTML)
+						var arr=JSON.parse(content)
+						console.log(arr)
+						if(arr!=null){
+							for(var i=0;i<arr.length;i++){
+								if(arr[i].value==this.previousSibling.innerHTML){
+									arr.splice(1,1)
+								}
+							}
+							window.localStorage.setItem('content',JSON.stringify(arr))
+						}else{
+							window.localStorage.clear()
+						}
+								
+					}
+					
+					//缓存事件
+					// 查询是否有缓存
+					var content = window.localStorage.getItem('content')
+					// console.log(JSON.parse(content))
+						
+					// 如果有缓存则使用缓存,若没有在使用空数组
+					var list =JSON.parse(content) || [];
+					
+					var addItem = {value:str}
+					
+					list.push(addItem)
+					console.log(list)
+					
+					window.localStorage.setItem('content',JSON.stringify(list))
+				}
+			}
+		</script>
+	</body>
+</html>

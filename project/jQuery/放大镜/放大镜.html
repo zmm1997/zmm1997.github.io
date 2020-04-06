@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>放大镜</title>
+        <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+        <style>
+            .box {
+                width: 400px;
+                height: 400px;
+                margin: 0px auto;
+                position: relative;
+				margin-top: 50px;
+            }
+            .stage {
+                width: 100%;
+                position: relative;
+                cursor: crosshair;
+            }
+            .original {
+                width: 100%;
+                vertical-align: middle;
+            }
+            .zoom {
+                width: 400px;
+                height: 400px;
+
+                background-position-x: 0px;
+                background-position-y: 0px;
+                display: none;
+
+                position: absolute;
+                top: 0;
+                left: 410px;
+            }
+            .mask {
+                background: rgba(249, 166, 0, 0.51);
+                position: absolute;
+                top: 0px;
+                left: 0px;
+				display: none;
+            }
+
+            ul.list {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            ul.list li {
+                width: 18%;
+                float: left;
+                margin-right: 2.5%;
+                margin-top: 2.5%;
+                border: 2px solid black;
+                padding: 2px;
+                box-sizing: border-box;
+            }
+            ul.list li:last-child {
+                margin-right: 0;
+            }
+            ul.list li.active {
+                border-color: red;
+            }
+            ul.list li img {
+                max-width: 100%;
+                vertical-align: middle;
+            }
+			button,
+			.level{
+				position: absolute;
+				top: 0px;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				padding: 0px;
+				font-size: 30px;
+				cursor: default;
+			}
+			.Change1{
+				left: 45%;
+			}
+			.Change2{
+				
+				left: 55%;
+			}
+			.level{
+				left: 50%;
+				font-size: 25px;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <div class="stage">
+                <img class="original" src="img/banner1.jpg" alt="" />
+                <div class="mask"></div>
+            </div>
+            <ul class="list">
+                <li class="active"><img src="img/banner1.jpg" alt="" /></li>
+                <li><img src="img/banner2.jpg" alt="" /></li>
+                <li><img src="img/banner3.jpg" alt="" /></li>
+                <li><img src="img/banner4.jpg" alt="" /></li>
+                <li><img src="img/banner5.jpg" alt="" /></li>
+            </ul>
+
+            <div class="zoom"></div>
+        </div>
+        
+		<button class="Change1">-</button>
+		<span class="level">1</span>
+        <button class="Change2">+</button>
+		<script>
+            $('.Change1').click(function(){
+				if(Number($('.level').html())>1)
+				{
+					var num=Number($('.level').html())-1
+					$('.level').html(String(num))
+				}
+			})
+			$('.Change2').click(function(){
+					var num=Number($('.level').html())+1
+					$('.level').html(String(num))
+			})
+			
+			$("button").click(function() {
+				var level = Number($('.level').html());
+                var w = $(".box").width();
+                var h = $(".box").height();
+                var mw = w / level;
+                var mh = h / level;
+                $(".mask").css({
+                    width: mw + "px",
+                    height: mh + "px"
+                });
+
+                $(".zoom").css({
+                    "background-image": "url(" + $(".original").attr("src") + ")",
+                    "background-size": level + "00% auto"
+                });
+
+                $("ul.list li").click(function(e) {
+                    $(this)
+                        .addClass("active")
+                        .siblings()
+                        .removeClass("active");
+                    $(".original").attr(
+                        "src",
+                        $(this)
+                            .find("img")
+                            .attr("src")
+                    );
+                    $(".zoom").css("background-image", "url(" + $(".original").attr("src") + ")");
+                });
+
+                $(".stage").hover(
+                    function() {
+                        $(".zoom").show();
+                    },
+                    function() {
+                        $(".zoom").hide();
+                    }
+                );
+                $(".stage").mousemove(function(event) { 
+                    $('.mask').css('display','block')
+					$(this).mouseleave(function(){
+						$('.mask').css('display','none')
+					})
+					
+					var x = event.pageX - $(".stage").offset().left;
+                    var y = event.pageY - $(".stage").offset().top;
+                    //console.log(x, y);
+
+                    // 限制范围
+                    x = x > w - mw / 2 ? w - mw / 2 : x;
+                    x = x < mw / 2 ? mw / 2 : x;
+                    y = y > h - mh / 2 ? h - mh / 2 : y;
+                    y = y < mh / 2 ? mh / 2 : y;
+
+                    // 修正鼠标居中
+                    $(".mask").css({
+                        top: y - mh / 2,
+                        left: x - mw / 2
+                    });
+                    
+					$(".zoom").css({
+                        "background-position-x": (x - mw / 2) * -level,
+                        "background-position-y": (y - mh / 2) * -level
+                    });
+                });
+            });
+			$("button").click()
+        </script>
+    </body>
+</html>

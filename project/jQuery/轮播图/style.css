@@ -1,0 +1,58 @@
+.container {
+ 	width: 450px;
+ 	margin: 0 auto;
+ 	overflow: hidden;
+ 	position: relative;
+ }
+
+ .container img {
+ 	max-width: 100%;
+ }
+
+ .container .wrapper {
+ 	overflow: hidden;
+ 	position: relative;
+ 	height: 100%;
+ }
+
+ .container .wrapper .picture {
+ 	float: left;
+ }
+
+ .circle {
+ 	position: absolute;
+ 	bottom: 5px;
+ 	left: 0;
+ 	text-align: center;
+ 	width: 100%;
+ }
+
+ .circle span {
+ 	display: inline-block;
+ 	width: 15px;
+ 	height: 15px;
+ 	background: rgba(20, 20, 55, 0.3);
+ 	margin: 0 8px;
+ 	border-radius: 50%;
+ }
+
+ .circle span.active {
+ 	background: rgba(10, 103, 195, 0.6);
+ }
+
+ .previous-button,
+ .next-button {
+ 	position: absolute;
+ 	top: 45%;
+ 	left: 0;
+ 	width: 20px;
+ 	height: 20px;
+ 	font-size: 15px;
+ 	font-weight: bold;
+ 	cursor: pointer;
+ }
+
+ .next-button {
+ 	left: auto;
+ 	right: 0;
+ }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+	<style type="text/css">
+		select {
+			width: 300px;
+			height: 38px;
+			margin-top: 10px;
+		}
+
+		.province {
+			margin-left: 10%;
+			font-size: 18px;
+		}
+
+		.city {
+			margin-left: 20px;
+			font-size: 18px;
+		}
+		button{
+			margin-left: 20px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			height: 36px;
+			width: 60px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<form class="form-inline" method="GET" action="">
+			<select class="province" name="province">
+				<option value="" disabled>-----请 选 择-----</option>
+			</select>
+			<select class="city" name="city">
+				<option value="" disabled>-----请 选 择-----</option>
+			</select>
+			<button type="submit" class="btn btn-default">Send</button>
+		</form>
+
+	</div>
+
+	<script>
+		$.ajax({
+			type: "GET",
+			url: "citys.json",
+			data: "data",
+			success: function (response) {
+				console.log(response)
+				response.provinces.forEach(function (element) {
+					//console.log(element);	
+					$('.province').append('<option class="provinceName">' + element.provinceName + '</option>')
+				});
+				fun()
+			}
+		});
+
+		var fun = function () {
+			for (var i = 0; i < $('.provinceName').length; i++) {
+				console.log($('.provinceName')[i].selected)
+
+				var flag = $('.provinceName')[i].selected
+				if (flag == true) {
+					console.log($('.provinceName')[i].text)
+					var Text = $('.provinceName')[i].text
+					$('.city').empty()
+
+					$.get('citys.json', function (data, textStatus, jqXHR) {
+						//console.log(data.provinces)
+						data.provinces.forEach(function (element) {
+							//console.log(element.citys);
+							//console.log(element.provinceName);
+							if (Text == element.provinceName) {
+								for (var i = 0; i < element.citys.length; i++) {
+									//console.log(element.citys[i])
+									$('.city').append('<option>' + element.citys[i].citysName + '</option>')
+								}
+							}
+						})
+					})
+				}
+			}
+		}
+
+		$('.province').change(function () {
+			fun()
+		})
+	</script>
+</body>
+
+</html>

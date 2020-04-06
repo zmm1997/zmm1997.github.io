@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{position: relative;}
+			div{width: 300px;height: 100px;margin: 30px;
+			font-size: 30px;margin-top: 290px;
+			position: absolute;}
+			li{width: 200px;height: 200px;
+			list-style: none;float: left;margin: 10px;
+			position: relative;}
+		</style>
+	</head>
+	<body id="box">
+		<h1>结算页面</h1>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<div></div>
+		<script>
+		if(document.cookie == '')
+		{
+			var ul=document.createElement('ul')
+			var li0=document.getElementsByTagName('li')[0]
+			var box=document.getElementById('box')
+			box.insertBefore(ul,li0)
+			ul.style='position: absolute;left: 200px;top: 100px;font-size: 30px;list-style: none;'
+			ul.innerHTML='快去购物吧！'
+		}
+		if(document.cookie != '')
+		{
+			// 要求将document.cookie的信息放到页面上
+			console.log(document.cookie)	
+			
+			function getMessage(str,key){
+				var arr = str.split('; ')
+				//console.log(arr)
+				for(var i=0;i<arr.length;i++){
+				//console.log(arr[i])	
+				if(arr[i].indexOf(key)>-1){
+					console.log(arr[i])
+					var newArr = arr[i].split('=')
+					//console.log(newArr[1])
+					}	
+				}
+				return newArr[1]
+			}
+			var res=getMessage(document.cookie,'img')
+			//console.log(res)
+			//console.log(typeof res)//string
+			
+			var obj=JSON.parse(res)
+			console.log(obj)
+			//console.log(typeof obj)//object
+			// console.log(obj[0].price)
+			// console.log(typeof obj[0].price)
+			// var jiege = obj[0].price.split('：')
+			// console.log(jiege[1])
+			//console.log(obj[0].img)
+			
+			var li=document.getElementsByTagName('li')
+			
+			var jiage=[]
+			for(var i=0;i<obj.length;i++)
+			{	
+				var img=document.createElement('img')
+				li[i].appendChild(img)
+				img.setAttribute('src',obj[i].img)
+				img.style.display='block'
+				img.style.margin='10px'
+					
+				var res=Number(obj[i].price.split('：')[1])
+				jiage.push(res)		
+			}
+			//console.log(jiage)
+			var p=0;
+			for(var i=0;i<jiage.length;i++)
+			{
+				var p=jiage[i]+p;
+			}
+			//console.log(p)
+			var box=document.getElementsByTagName('div')[0]
+			box.innerHTML='一共需要支付'+p+'元'
+		}
+		</script>
+	</body>
+</html>

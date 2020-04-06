@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CSS3-3D倾斜视差图片展示动画特效</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cards">
+    <h3>Movies</h3>
+    <h1>Popular</h1>
+    <div class="card card__one">
+      <div class="card__bg"></div>
+      <img class="card__img" src="img/3dr_mono.png" />
+      <div class="card__text">
+        <p class="card__title">Princess Mononoke</p>
+      </div>
+    </div>
+    <div class="card card__two">
+      <div class="card__bg"></div>
+      <img class="card__img" src="img/3dr_chihiro.png" />
+      <div class="card__text">
+        <p class="card__title">Spirited Away</p>
+      </div>
+    </div>
+    <div class="card card__three">
+      <div class="card__bg"></div>
+      <img class="card__img" src="img/3dr_howlcastle.png" />
+      <div class="card__text">
+        <p class="card__title">Howl's Moving Castle</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    var cards = document.querySelector(".cards");
+    var images = document.querySelectorAll(".card__img");
+    var backgrounds = document.querySelectorAll(".card__bg");
+    var range = 40;
+
+    // const calcValue = (a, b) => (((a * 100) / b) * (range / 100) -(range / 2)).toFixed(1);
+    var calcValue = function calcValue(a, b) { return (a / b * range - range / 2).toFixed(1); }; // thanks @alice-mx
+
+    var timeout = void 0;
+    document.addEventListener('mousemove', function (_ref) {
+      var x = _ref.x, y = _ref.y;
+      if (timeout) {
+        window.cancelAnimationFrame(timeout);
+      }
+
+      timeout = window.requestAnimationFrame(function () {
+        var yValue = calcValue(y, window.innerHeight);
+        var xValue = calcValue(x, window.innerWidth);
+        console.log(xValue, yValue);
+        cards.style.transform = "rotateX(" + yValue + "deg) rotateY(" + xValue + "deg)";
+
+        [].forEach.call(images, function (image) {
+          image.style.transform = "translateX(" + -xValue + "px) translateY(" + yValue + "px)";
+        });
+
+        [].forEach.call(backgrounds, function (background) {
+          background.style.backgroundPosition = xValue * .45 + "px " + -yValue * .45 + "px";
+        });
+      });
+    }, false);
+  </script>
+</body>
+</html>

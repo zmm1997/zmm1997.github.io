@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>商品属性选择</title>
+		<meta charset="utf-8">
+		<style>
+			*{ margin:0; padding:0;}
+			#wrap{
+				width:800px;
+				height:600px;
+				margin:50px auto;
+			}
+			#top{
+				width:600px;
+				height:400px;
+				border-bottom:2px solid #ffaa7f;
+				font-family:微软雅黑;
+			}
+			#top p{
+				margin-bottom:15px;
+			}
+			#top p font{
+				font-size:30px;
+				color:#000;
+				margin-right:15px;
+			}
+			#top p span{
+				font-size:30px;
+				color:#000000;
+				border:2px solid #999;
+				display:inline-block;
+				padding:8px;
+				cursor:pointer;
+				margin-left: 15px;
+			}
+			#top p span.on{
+				border:2px solid #f60;
+				padding:8px;
+				background:url(images/on.png) no-repeat right bottom;
+			}
+			#bottom{
+				width:600px;
+				height:159px;
+				padding-top:20px;
+				font-family:微软雅黑;
+			}
+			#bottom p{font-size: 30px;}
+			#bottom p font{
+				color:#f60;
+				font-size:30px;
+				margin-right:20px;
+			}
+			#bottom button{
+				width:500px;
+				height:50px;
+				font-family:微软雅黑;
+				margin-top:20px;
+				font-size:30px;
+				background:#f60;
+				color:#fff;
+				border:none;	
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top">
+				<p id='model'>
+					<font>型号</font>
+					<span>4.6英寸</span>
+					<span>5.5英寸</span>
+				</p>
+				<p id='color'>
+					<font>颜色</font>
+					<span>银色</span>
+					<span>金色</span>
+					<span>深蓝色</span>
+				</p>
+				<p id='rom'>
+					<font>内存</font>
+					<span>32GB</span>
+					<span>64GB</span>
+					<span>128GB</span>
+				</p>
+				<p id='edition'>
+					<font>版本</font>
+					<span>公开版</span>
+					<span>移动赠费版</span>
+					<span>联通合约版</span>
+				</p>
+			</div>
+			<div id="bottom">
+				<p>价格： <font>￥ <span id='price'>0</span></font></p>
+				<button>立即购买</button>
+			</div>
+		</div>
+		<script>
+			//型号的span
+			var mSpan=document.getElementById('model').getElementsByTagName('span')
+			
+			//颜色的span
+			var cSpan=document.getElementById('color').getElementsByTagName('span')
+			
+			//内存的span
+			var rSpan=document.getElementById('rom').getElementsByTagName('span')
+			
+			//版本的span
+			var eSpan=document.getElementById('edition').getElementsByTagName('span')
+			
+			//所有会点击的span
+			var aSpan=document.getElementsByTagName('span')
+			
+			//型号
+			var Model=document.getElementById('model')
+			
+			//内存
+			var Rom=document.getElementById('rom')
+			
+			//价格
+			var Price=document.getElementById('price')
+			
+			//点击事件
+			for(var i=0;i<aSpan.length;i++)
+			{
+				//给所有会被点击的span绑定点击事件
+				aSpan[i].onclick=function(){
+					//被点击的对象的父节点的所有子节点
+					var allChild=this.parentNode.children
+					//console.log(allChild)
+					
+					//去掉所有子节点的类
+					for(var j=0;j<allChild.length;j++ )
+					{
+						allChild[j].className=''
+					}
+					//点击对象设置类
+					this.className='on'
+					
+					//检测点击到型号或内存计算价格
+					if(this.parentNode==Model || this.parentNode==Rom)
+					{
+						price()
+					}
+				}
+			}
+
+			function price(){
+				var p1 = 0
+				var p2 = 0
+				
+				//型号
+				for(var i=0;i<mSpan.length;i++ )
+				{
+					//检测点击型号
+					if(mSpan[i].className=='on')
+					{
+						p1 = i?6200:4200;
+						break;
+					}
+				}
+				
+				//内存
+				for(var i=0;i<rSpan.length;i++)
+				{
+					//检测点击内存
+					if(rSpan[i].className=='on')
+					{
+						//价格差值
+						switch(i)
+						{
+							case 0:
+								p2 = 0;
+								break;
+							case 1:
+								p2 = 900;
+								break;
+							case 2:
+								p2 = 2000;
+								break;
+						}
+					}
+				}
+				Price.innerHTML = p1+p2;
+			}
+		</script>
+	</body>
+</html>

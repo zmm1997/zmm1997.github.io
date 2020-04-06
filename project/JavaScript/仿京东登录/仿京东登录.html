@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="jd.css">
+		<style>
+			div{text-align: center;}	
+		</style>
+	</head>
+	<body>
+		<div class="header">
+		    <a class="logo" href="http://www.jd.com"></a>
+		    <div class="desc">欢迎注册</div>
+		</div>
+		<!-- 用户注册 -->
+		<div class="container">
+		    <div class="register">
+				<!-- 用户名 -->
+				<div class="register-box">	
+					<div class="box default">
+						<label for="userName">用 户 名</label>
+						<input type="text" id="userName" placeholder="请输入用户名" />
+						<i></i>
+					</div>
+					<!--提示信息-->
+					<div class="tip">
+						<i></i>
+						<span></span>	
+					</div>
+				</div>
+				
+				<!--设置密码-->
+				<div class="register-box">
+					<div class="box default">
+						<label for="pwd">设 置 密 码</label>
+						<input type="password" id="pwd" placeholder="建议至少两种字符组合使用" />
+						<i></i>
+		    		</div>
+					<!--提示信息-->
+					<div class="tip">
+						<i></i>
+						<span></span>	
+					</div>
+				</div>
+				
+				<!--确认密码-->
+				<div class="register-box">	
+					<div class="box default">
+						<label for="pwd2">确 认 密 码</label>
+						<input type="password" id="pwd2" placeholder="请再次输入密码" />
+						<i></i>
+					</div>
+					<!--提示信息-->
+					<div class="tip">
+						<i></i>
+						<span></span>
+		    		</div>
+				</div>
+					
+				<!--邮箱验证-->
+		    	<div class="register-box">	
+		    		<div class="box default">
+		    			<label for="email">邮 箱 验 证</label>
+		    			<input type="text" id="email" placeholder="请输入邮箱" />
+						<i></i>
+		    		</div>
+		    		<!--提示信息-->
+		    		<div class="tip">
+		    			<i></i>
+						<span></span>
+		    		</div>
+		    	</div>
+		    		
+				<!--手机验证-->
+		    	<div class="register-box">	
+		    		<div class="box default">
+		    			<label for="mobile">手 机 验 证</label>
+		    			<input type="text" id="mobile" placeholder="请输入手机号" />
+						<i></i>
+		    		</div>
+		    		<!--提示信息-->
+		    		<div class="tip">
+		    			<i></i>
+						<span></span>
+		    		</div>
+		    	</div>
+		    		 
+				<!--协议-->
+		    	<div class="register-box xieyi">	
+		    		<div class="box default">
+		    			<input type="checkbox" id="ck" />
+		    			<span>我已阅读并同意<a href="##">《京东用户注册协议》</a></span>
+		    		</div>
+		    		<!--提示信息-->
+		    		<div class="tip">
+		    			<i></i>
+						<span></span>	
+		    		</div>
+		    	</div>
+		    		
+				<!--注册-->
+		    	<button id="btn">注册</button>
+		    </div>    	
+		</div>
+		<!-- 程序 -->
+		<script>
+			//在JS应用库JQUERY将$做为一个自定义函数名了，这个函数是获取指定网页元素的函数
+			//定义后在网页就不用每次使用document.getElementById("ID名")来获取元素，只用$('ID名')即可
+			function $(id)
+			{
+				return document.getElementById(id);
+			}
+			
+			// .代表除了空格以外的任意字符
+			// \u4e00-\u9fa5  中文的范围
+			// \d->[0-9]
+			var regs = {
+				userNameReg: /^([\u4e00-\u9fa5]|[a-zA-Z0-9-_]){4,20}$/,
+				pwdReg: /^.{6,20}$/,
+				numReg: /\d/,
+				strReg: /[a-zA-Z]/,
+				tsReg: /[^\u4e00-\u9fa5a-zA-Z0-9]/
+			}
+			
+			window.onload = function()
+			{
+				// box: 常规 box  出错的时候  box error  正确的时候  box right
+				// tip: 常规 tip hide  出错的时候  tip error  默认的时候  tip default
+				var userName = $("userName");
+				var pwd = $("pwd");
+				var pwd2 = $("pwd2");
+				var email = $("email");
+				var mobile = $("mobile");
+				var ck = $("ck");
+				var btn = $("btn");
+				
+				//用户名
+				//键盘按键弹起，聚焦，失焦时触发
+				userName.onkeyup=userName.onfocus=userName.onblur=function(ev)
+				{
+					var e = ev || window.event;
+					checkUserName(e);
+				}
+					
+				function checkUserName(e2)
+				{
+					var type;
+					if(e2)
+					{
+						type = e2.type;
+					}
+					var value = userName.value;
+					var box = userName.parentNode;
+					var tip = box.nextElementSibling;
+					var span = tip.lastElementChild;
+					
+					//聚焦
+					if(type=="focus")
+					{
+						if(value=="")
+						{
+							box.className = "box";
+							tip.className = "tip default";
+							span.innerHTML = "支持汉字、字母、数字、“-”“_”的组合，4-20个字符";
+							return false;
+						}
+					}
+					
+					//失焦
+					if(type=="blur")
+					{
+						if(value=="")
+						{
+							box.className = "box";
+							tip.className = "tip hide";
+							return false;//不继续往下走
+						}
+					}
+					
+					//未输入内容
+					//test():检测是否符合正则规范，返回Boolean值  符合->true  不符合->false
+					if(value=="")
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "用户名不能为空";
+						return false;
+					}
+					else if(regs.userNameReg.test(value))
+					{
+						box.className = "box right";
+						tip.className = "tip hide";
+						return true;
+					}
+					else
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "格式错误，仅支持汉字、字母、数字、“-”“_”的组合";
+						return false;
+					}
+				}
+				
+				//设置密码
+				pwd.onkeyup=pwd.onfocus=pwd.onblur=function(ev)
+				{
+					var e = ev || window.event;
+					checkPwd(e);
+				}
+				
+				function checkPwd(e2)
+				{
+					var type;
+					if(e2)
+					{
+						type = e2.type;
+					}
+					var value = pwd.value;
+					var box = pwd.parentNode;
+					var tip = box.nextElementSibling;
+					var span = tip.lastElementChild;
+					
+					if(type=="focus")
+					{
+						if(value=="")
+						{
+							box.className = "box";
+							tip.className = "tip default";
+							span.innerHTML = "建议使用字母、数字和符号两种以上的组合,6-20个字符";
+							return false;
+						}
+					}
+					
+					if(type=="blur")
+					{
+						if(value=="")
+						{
+							box.className = "box";
+							tip.className = "tip hide";
+							return false;
+						}
+					}
+			
+					if(value=="")
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "密码不能为空";
+						return false;
+					}
+					else if(regs.pwdReg.test(value))
+					{
+						box.className = "box right";
+						var level = getPwdLevel(value);
+						switch(level)
+						{
+							case 1:
+								tip.className = "tip ruo";
+								break;
+							case 2:
+								tip.className = "tip zhong";
+								break;
+							case 3:
+								tip.className = "tip qiang";
+								break;
+						}
+						return true;
+					}
+					else
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "密码长度应在6-20个字符之间";
+						return false;
+					}
+				}
+				
+				//判断密码等级
+				function getPwdLevel(pwd)
+				{
+					var level = 0;
+					var numReg=true, strReg=true, tsReg=true;
+					for(var i=0;i<pwd.length;i++)
+					{
+						//console.log(pwd[i])
+						if(numReg && regs.numReg.test(pwd[i]))
+						{
+							level++;
+							//console.log(regs.numReg.test(pwd[i]))
+							numReg = false;	
+							continue;
+						}
+						if(strReg && regs.strReg.test(pwd[i]))
+						{
+							level++;
+							//console.log(regs.strReg.test(pwd[i]))
+							strReg = false;	
+							continue;
+						}
+						if(tsReg && regs.tsReg.test(pwd[i]))
+						{
+							level++;
+							//console.log(regs.tsReg.test(pwd[i]))
+							tsReg = false;	
+						}
+					}
+					return level;
+				}
+				
+				//确认密码
+				pwd2.onkeyup=pwd2.onfocus=pwd2.onblur=function(ev)
+				{
+					var e = ev || window.event;
+					checkPwd2(e);
+				}
+				
+				function checkPwd2(e2)
+				{
+					var type;
+					if(e2)
+					{
+						type = e2.type;
+					}
+					var value1 = pwd.value;
+					var value = pwd2.value;
+					var box = pwd2.parentNode;
+					var tip = box.nextElementSibling;
+					var span = tip.lastElementChild;
+					
+					if(type=="focus")
+					{
+						if(value=="")
+						{
+							box.className = "box";
+							tip.className = "tip default";
+							span.innerHTML = "请再次输入密码";
+							return false;
+						}
+					}
+					
+					if(value == "")
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "请再次输入密码";
+						return false;
+					}
+					else if(value1 == value)//判断两次密码是否一致
+					{
+						box.className = "box right";
+						tip.className = "tip hide";
+						return true;
+					}
+					else
+					{
+						box.className = "box error";
+						tip.className = "tip error";
+						span.innerHTML = "两次密码不一致";
+						return false;
+					}
+				}
+			
+				//注册
+				btn.onclick = function()
+				{
+					var box = ck.parentNode;
+					var tip = box.nextElementSibling;
+					var span = tip.lastElementChild;
+					
+					//判断是否勾选
+					if(ck.checked)
+					{
+						//判断前面内容是否填写
+						if(checkUserName() && checkPwd() && checkPwd2())
+						{
+							alert("注册成功");
+						} else
+						{
+							return false;
+						}
+					}
+					else
+					{
+						tip.className = "tip error";
+						span.innerHTML = "请同意协议";
+						return false;
+					}
+				}
+				
+				//协议
+				ck.onclick = function()
+				{
+					var box = ck.parentNode;
+					var tip = box.nextElementSibling;
+					var span = tip.lastElementChild;
+					if(ck.checked)
+					{
+						tip.className = "tip hide";
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

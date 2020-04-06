@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        form{
+            width: 50%;
+            height: 200px;
+            margin: 30px auto;
+            font-size: 20px;
+        }
+
+        .fav{
+            width: 100%;
+            height: 50px;
+        }
+
+        .fav label input {
+            display: none;
+        }
+
+        .fav label input+span::before {
+            width: 25px;
+            height: 25px;
+            content: "";
+            display: inline-block;
+            background: url("icr-green-skin.png");
+        }
+
+        .fav label input+span:hover:before {
+            background-position-x: -50px;
+        }
+
+        .fav label input:checked+span::before {
+            background-position-x: -100px;
+        }
+
+        .fav label input:checked+span:hover:before {
+            background-position-x: -150px;
+        }
+
+        .gender{
+            width: 100%;
+            height: 50px;
+        }
+
+        .gender label input {
+            display: none;
+        }
+
+        .gender label input+span::before {
+            width: 25px;
+            height: 25px;
+            content: "";
+            display: inline-block;
+            background: url("icr-green-skin.png");
+            background-position-y: -50px;
+        }
+
+        .gender label input+span:hover:before {
+            background-position-x: -50px;
+            background-position-y: -50px;
+        }
+
+        .gender label input:checked+span::before {
+            background-position-x: -100px;
+            background-position-y: -50px;
+        }
+
+        .gender label input:checked+span:hover:before {
+            background-position-x: -150px;
+            background-position-y: -50px;
+        }
+
+        input[type="submit"]{
+            margin-top: 10px;
+            width: 80px;
+            height: 50px;;
+            line-height: 50px;
+            padding: 0;
+        }
+    </style>
+    <form method="get" action="#">
+        <div class="fav">
+            喜欢的水果:
+            <label>
+                <input type="checkbox" name="fav" id="" value="葡萄" />
+                <span> 葡萄</span>
+            </label>
+            <label>
+                <input type="checkbox" name="fav" id="" value="橘子" />
+                <span> 橘子</span>
+            </label>
+            <label>
+                <input type="checkbox" name="fav" id="" value="芒果" />
+                <span> 芒果</span>
+            </label>
+        </div>
+        <hr>
+        <div class="gender">
+            性别:
+            <label>
+                <input type="radio" name="gender" id="" value="男" />
+                <span> 男</span>
+            </label>
+            <label>
+                <input type="radio" name="gender" id="" value="女" />
+                <span> 女</span>
+            </label>
+            <label>
+                <input type="radio" name="gender" id="" value="保密" />
+                <span> 保密</span>
+            </label>
+        </div>
+        <hr>
+        <input type="submit" value="提交" style="font-size: 20px;"/>
+    </form>
+</body>
+</html>

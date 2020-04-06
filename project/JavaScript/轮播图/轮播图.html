@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		body {
+			background: #666;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		div.banner {
+			width: 1200px;
+			margin: 0 auto;
+			position: relative;
+			margin-top: 100px;
+		}
+
+		div.banner>ul.img>li {
+			position: absolute;
+			display: none;
+		}
+
+		div.banner>ul.img>li.active {
+			display: block;
+		}
+
+		div.banner>ul.img>li>img {
+			width: 100%;
+			display: block;
+		}
+
+		div.banner>ul.circle {
+			position: absolute;
+			left: 540px;
+			top: 400px;
+		}
+
+		div.banner>ul.circle>li {
+			width: 10px;
+			height: 10px;
+			background: #666;
+			border-radius: 50%;
+			float: left;
+			margin: 0px 10px;
+		}
+
+		div.banner>ul.circle>li.active {
+			background: red;
+		}
+
+		div.banner>span {
+			display: block;
+			width: 50px;
+			height: 80px;
+			background: rgba(135, 128, 133, 0.54);
+			color: white;
+			font-size: 60px;
+			text-align: center;
+			line-height: 80px;
+			position: absolute;
+			top: 170px;
+		}
+
+		div.banner>span#left {
+			left: 0px;
+			cursor: pointer;
+		}
+
+		div.banner>span#right {
+			right: 0px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="banner">
+		<ul class="img">
+			<li class="active"><img src="image/1.jpg" alt=""></li>
+			<li><img src="image/2.jpg" alt=""></li>
+			<li><img src="image/3.jpg" alt=""></li>
+			<li><img src="image/4.jpg" alt=""></li>
+			<li><img src="image/3.jpg" alt=""></li>
+		</ul>
+
+		<ul class="circle">
+			<li class="active" value="0"></li>
+			<li value="1"></li>
+			<li value="2"></li>
+			<li value="3"></li>
+			<li value="4"></li>
+		</ul>
+		<span id="left">&lt;</span>
+		<span id="right">&gt;</span>
+	</div>
+	<script>
+		// 获取元素
+		var img = document.getElementsByClassName('img')[0].getElementsByTagName('li');
+		console.log(img)
+
+		var circle = document.getElementsByClassName('circle')[0].getElementsByTagName('li');
+
+		var aLeft = document.getElementById('left');
+		var aRight = document.getElementById('right');
+
+		// 定义图片的下标
+		var index = 0;
+
+		// run让图片和小圆点动起来
+		function run() {
+			// 将所有的li的class移除
+			for (var i = 0; i < img.length; i++) {
+				img[i].removeAttribute('class');
+				circle[i].removeAttribute('class');
+			}
+
+
+			// 判断index是否超过取值范围
+			if (index < img.length - 1) {
+				index++;
+			} else {
+				index = 0;
+			}
+
+			// console.log(index)
+			img[index].setAttribute('class', 'active');
+			circle[index].setAttribute('class', 'active');
+		}
+
+		var timer = setInterval(run, 2000)
+
+
+		// 给所有的小圆点绑定点击事件
+		for (var i = 0; i < circle.length; i++) {
+			circle[i].onclick = function () {
+				// 清除定时器,防止定时器叠加
+				clearInterval(timer)
+
+				// console.log(this.value)
+				index = this.value - 1;
+
+				run();
+
+				// 让定时器动起来
+				timer = setInterval(run, 2000)
+
+			}
+		}
+
+		// 上一张图片
+		aLeft.onclick = function () {
+			// 清除定时器,防止定时器叠加
+			clearInterval(timer)
+			console.log(index)// 0  1  2  3 
+
+			// 判断是否已经到达第一张
+			if (index == 0) {
+				index = img.length - 2;
+			} else {
+				index -= 2;// index = index - 2;
+			}
+			run()
+			timer = setInterval(run, 2000)
+		}
+
+		// 下一张图片
+		aRight.onclick = function () {
+			// 清除定时器,防止定时器叠加
+			clearInterval(timer)
+			// console.log(index)
+			run()
+
+			// 重新添加定时器,让其动起来
+			timer = setInterval(run, 2000)
+		}
+	</script>
+</body>
+</html>

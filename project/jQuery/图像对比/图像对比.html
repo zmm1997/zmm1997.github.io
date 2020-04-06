@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+		<div id="comparison">
+		  <figure>
+		    <div id="divisor"></div>
+		  </figure>
+		  <input type="range" min="0" max="100" value="50">
+		</div>
+		<script>
+			$('input')[0].oninput=function(){
+				$('#divisor').css('width',$(this).prop('value')+'%')
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,178 @@
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+h3,
+h5 {
+  margin: 0;
+}
+.stage {
+  width: 500px;
+}
+.card {
+  display: flex;
+  padding: 25px;
+  overflow: hidden;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 0 15px 0 gray;
+}
+.card .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("http://p1.music.126.net/-EV4XhJEJn_Ib7ebS1OHhg==/109951164820593469.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.6);
+  transform: scale(1.2);
+  z-index: -1;
+}
+.card .glue {
+  width: 130px;
+  height: 130px;
+  background: url("https://www.17sucai.com/preview/1160620/2018-10-11/Music-player/images/cd.png");
+  background-size: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+  animation: myrotate 6s linear infinite;
+  animation-play-state: paused;
+}
+.card .glue img {
+  width: 100%;
+  border-radius: 50%;
+}
+.card .finger {
+  width: 25px;
+  background: url("https://www.17sucai.com/preview/1160620/2018-10-11/Music-player/images/cd_tou.png") no-repeat;
+  background-size: 100%;
+  margin-left: -10px;
+  transform-origin: 15px 10px;
+  transform: rotate(-15deg);
+  transition: all 0.3s;
+}
+.stage.playing .card .finger {
+  transform: rotate(5deg);
+}
+.stage.playing .card .glue {
+  animation-play-state: running;
+}
+.card .right {
+  flex: 1;
+  margin-left: 15px;
+  color: white;
+}
+@keyframes myrotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.progress input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  top: 3px;
+  background-color: rgba(123, 185, 185, 0.5);
+  width: 100%;
+}
+.progress input[type="range"]:focus {
+  outline: none;
+}
+.progress input[type="range"]:active {
+  outline: none;
+  border: none;
+}
+.progress input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 10px;
+  background: rgba(255, 192, 203, 0.575);
+  border-radius: 0;
+}
+.progress input[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 8px;
+  height: 10px;
+  background: rgba(255, 192, 203, 0.616);
+  border-radius: 0;
+}
+ul.list li {
+  margin-top: 10px;
+}
+ul.list li i {
+  margin-left: 10px;
+}
+.time span:last-child {
+  margin-left: 200px;
+}
+.volume {
+  position: absolute;
+  margin-left: 100px;
+  margin-top: -22px;
+}
+.volume .box1 {
+  position: absolute;
+  margin-left: 15px;
+  margin-top: 8px;
+  border-radius: 5px;
+  width: 108px;
+  height: 8px;
+}
+.volume .box2 {
+  position: absolute;
+  margin-left: 15px;
+  margin-top: 8px;
+  pointer-events: none;
+  height: 8px;
+  border-radius: 5px;
+  z-index: -1;
+}
+.volume input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 5px;
+  background-color: rgba(123, 185, 185, 0.5);
+}
+.volume input[type="range"]:focus {
+  outline: none;
+}
+.volume input[type="range"]:active {
+  outline: none;
+  border: none;
+}
+.volume .box1[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  background: pink;
+  border-radius: 5px;
+}
+.volume .box1[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 8px;
+  height: 8px;
+  background: pink;
+  border-radius: 5px;
+}
+.volume .box2[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border-radius: 5px;
+}
+.volume .box2[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  border-radius: 5px;
+}
+/*# sourceMappingURL=./music.css.map */

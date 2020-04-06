@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+		<div id="box">
+			<dl>
+				<dt>品牌：</dt>
+				<dd>惠普</dd>
+				<dd>联想</dd>
+				<dd>戴尔</dd>
+				<dd>三星</dd>
+				<dd>宏基</dd>
+				<dd>苹果</dd>
+				<dd>神舟</dd>
+				<dd>华硕</dd>
+				<dd>方正</dd>
+			</dl>
+			<dl>
+				<dt>价格：</dt>
+				<dd>3000-3999</dd>
+				<dd>4000-4999</dd>
+				<dd>5000-5999</dd>
+				<dd>6000-6999</dd>
+				<dd>7000-7999</dd>
+				<dd>8000-8999</dd>
+				<dd>9000-9999</dd>
+				<dd>10000以上</dd>
+			</dl>
+			<dl>
+				<dt>尺寸：</dt>
+				<dd>8.9英寸以及以下</dd>
+				<dd>11英寸</dd>
+				<dd>12英寸</dd>
+				<dd>13英寸</dd>
+				<dd>14英寸</dd>
+				<dd>15英寸</dd>
+				<dd>16英寸</dd>
+			</dl>
+			<dl style="border: none">
+				<dt>显卡：</dt>
+				<dd>独立显卡</dd>
+				<dd>集成显卡</dd>
+				<dd>核芯显卡</dd>
+			</dl>
+			<dl class="select" style="border-bottom-width: 0px;">
+				<dt>已选条件：</dt>
+			</dl>
+		</div>
+		
+		<script>
+			//除了已选条件以外的dl
+			var dls=document.querySelectorAll('dl:not(.select)');
+			//已选条件栏
+			var selected=document.querySelector('.select');
+			
+			for (var i=0;i<dls.length;i++){
+				//给每一行dl标签添加属性，用于对应下面的dd标签；true表示对应的标签未创建，false表示对应的标签已创建
+				dls[i].mark=false;
+				select(i);
+			}
+			
+			function select(n){
+				var dds=dls[n].querySelectorAll('dd');
+				var prev=null;
+				var dd=null;
+			
+				for (var i = 0; i < dds.length; i++){
+					dds[i].onclick = function(){
+						//字体颜色
+						if(prev){
+							prev.className=''
+						}
+						this.className='active';
+						prev = this;
+			
+						//创建dd标签
+						var parent=this.parentNode;
+						if(!parent.mark){
+							//条件满足则对应的dd标签还未创建
+							dd=document.createElement('dd');
+							dd.innerHTML=this.innerHTML;
+							selected.appendChild(dd);
+							parent.mark=true;
+						}else{
+							//若对应的标签已经创建，修改内容
+							dd.innerHTML=this.innerHTML;
+						}
+						
+						//删除
+						var span=document.createElement('span');
+						var that=this
+						span.innerHTML='X'
+						span.onclick=function(){
+							selected.removeChild(dd)
+							that.className=''
+							parent.mark=false
+						}
+						dd.appendChild(span)
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

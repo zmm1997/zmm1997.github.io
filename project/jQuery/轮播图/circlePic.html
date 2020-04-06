@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <!-- jQuery库 -->
+		<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+        <!-- css样式 -->
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<!-- js程序 -->
+		<script src="lunbo.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- 图片 -->
+			<div class="wrapper">
+                <div class="picture">
+                    <img src="../image/1.jpg" alt="" />
+                </div>
+                <div class="picture">
+                    <img src="../image/2.jpg" alt="" />
+                </div>
+                <div class="picture">
+                    <img src="../image/3.jpg" alt="" />
+                </div>
+				<div class="picture">
+				    <img src="../image/4.jpg" alt="" />
+				</div>
+				<div class="picture">
+				    <img src="../image/5.jpg" alt="" />
+				</div>
+            </div>
+			<!-- 小圆点 -->
+			<div class="circle"></div>
+            <!-- 左右键 -->
+			<div class="previous-button"><h3><</h3></div>
+            <div class="next-button"><h3>></h3></div>
+        </div>
+		
+        <script>
+            var pic = new circlePic(".container",{auto:true});
+			// auto设置为true时才执行自动轮播
+        </script>
+    </body>
+</html>

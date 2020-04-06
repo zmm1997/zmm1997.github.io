@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.contain{
+			width: 600px;
+			margin: auto;
+            text-align: center;
+            position: absolute;
+            top: 20px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+		}
+		div.box {
+			width: 430px;
+			height: 430px;
+			overflow: hidden;
+		}
+
+		div.btn {
+			position: absolute;
+			left: 450px;
+			top: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="contain">
+		<div class="box"><img src="images/1.jpg" alt=""></div>
+		<div class="btn">
+			<button style="font-size: 15px;padding: 5px 10px;">向上</button>
+			<button style="font-size: 15px;padding: 5px 10px;">向下</button>
+		</div>
+	</div>
+
+	<script>
+		var btn = document.getElementsByTagName('button');
+		var box = document.getElementsByClassName('box')[0];
+		var img = document.getElementsByTagName('img')[0];
+		// 设置box的高度初始值
+		var height = 430;
+		var timer;
+		var timer1;
+		var flag = true;
+
+		// 向上
+		btn[0].onclick = function () {
+			// 清除定时器,防止定时器叠加
+			clearInterval(timer)
+			clearInterval(timer1)
+
+			timer = setInterval(function () {
+				// 判断是否全部隐藏
+				if (height >= 10) {
+					height -= 10;
+				} else {
+					clearInterval(timer)
+					height = 0;
+					if (flag) {
+						img.setAttribute('src', 'images/2.jpg')
+						flag = false;
+					} else {
+						img.setAttribute('src', 'images/1.jpg')
+						flag = true;
+					}
+				}
+				console.log(height)
+				box.style.height = height + 'px';
+			}, 50)
+
+		}
+
+		// 向下
+		btn[1].onclick = function () {
+			clearInterval(timer)
+			clearInterval(timer1)
+			timer1 = setInterval(function () {
+				if (height <= 420) {
+					height += 10;
+				} else {
+					clearInterval(timer1)
+					height = 430;
+				}
+				console.log(height)
+				box.style.height = height + 'px';
+			}, 50)
+
+		}
+	</script>
+</body>
+</html>

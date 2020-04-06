@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div{
+				width:100px;
+				height:100px;
+				background:-webkit-radial-gradient(50px 50px,transparent,red);
+				border-radius:50%;
+				position:relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			//获取标签
+			var box = document.getElementById('box')
+			
+			function run(x,y)
+			{
+				//球的初始位置
+				var sx = Math.floor(Math.random()*(window.innerWidth-box.offsetWidth))
+				var sy = Math.floor(Math.random()*(window.innerHeight-box.offsetHeight))
+					
+				setInterval(function()
+				{		
+					//判断小球是否上下撞击屏幕
+					if(box.offsetHeight+box.offsetTop>=window.innerHeight || box.offsetTop<=0)
+					{
+						//反向
+						y*=-1
+					}
+					
+					//判断小球是左右下撞击屏幕
+					if(box.offsetWidth+box.offsetLeft>=window.innerWidth || box.offsetLeft<=0)
+					{
+						x*=-1
+					}
+					
+					//当前坐标
+					sx+=x
+					sy+=y
+					
+					//移动小球
+					box.style.left = sx+'px';
+					box.style.top = sy+'px';	
+					},20)				
+			}
+			run(5,5)		
+		</script>
+	</body>
+</html>

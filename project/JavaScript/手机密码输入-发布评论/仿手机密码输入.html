@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{position: relative;}
+			#box{
+				width: 900px;height: 1300px;background: peachpuff;position: relative;margin: 20px auto;
+			}
+			#open{
+				width: 240px;
+				height: 80px;
+				position: absolute;
+				left:350px;
+				top: 100px;
+				}
+			#close{
+				width: 240px;
+				height: 80px;
+				position: absolute;
+				left:350px;
+				top:260px;
+				}
+			#clearAll{
+				width: 240px;
+				height: 80px;
+				position: absolute;
+				left:350px;
+				top: 420px;
+				}
+			#pwd{
+				width: 900px;
+				height: 700px;
+				background: palegreen;
+				position: relative;
+				top: 600px;
+				display: none;
+			}
+			p{width: 900px;height: 60px;text-align: center;}
+			
+			#x{position: absolute;top: 0px;left: 850px;width: 50px;height: 50px;}
+			
+			#s1{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 90px;}
+			#s2{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 210px;}
+			#s3{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 330px;}
+			#s4{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 450px;}
+			#s5{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 570px;}
+			#s6{width: 100px;height: 100px;background-color: papayawhip;position: absolute;top: 80px;left: 690px;}
+			
+			#insert{width: 900px;height: 480px;position: absolute;top: 220px;}
+			
+			#p1{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 0px;left: 0px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p2{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 0px;left: 300px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p3{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 0px;left: 600px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p4{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 120px;left: 0px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;cursor: pointer;}
+			
+			#p5{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 120px;left: 300px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p6{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 120px;left: 600px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p7{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 240px;left: 0px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p8{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 240px;left: 300px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p9{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 240px;left: 600px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#empty{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 360px;left: 00px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#p0{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 360px;left: 300px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+			
+			#delete{width: 300px;height: 120px;text-align: center;line-height: 120px; position: absolute;top: 360px;left: 600px;
+			background:lightblue;border: 2px solid gray;box-sizing: border-box;cursor: pointer;}
+		
+			/* #s1>img{position: absolute;left: 24px;top: 24px;} */
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div><button id="open" onclick="Open()">打开弹框</button></div>
+			<div><button id="close" onclick="Close()">关闭弹框</button></div>
+			<div><button id="clearAll">清空密码</button></div>
+			<div id="pwd">
+				<p>您将支付100元，请输入密码</p>
+				<button id="x" onclick="Close()">x</button>
+				<div id="box2">
+					<span id="s1"></span>
+					<span id="s2"></span>
+					<span id="s3"></span>
+					<span id="s4"></span>
+					<span id="s5"></span>
+					<span id="s6"></span>
+				</div>
+				<div id="insert">
+					<span id="p1">1</span>
+					<span id="p2">2</span>
+					<span id="p3">3</span>
+					<span id="p4">4</span>
+					<span id="p5">5</span>
+					<span id="p6">6</span>
+					<span id="p7">7</span>
+					<span id="p8">8</span>
+					<span id="p9">9</span>
+					<span id="empty">清空</span>
+					<span id="p0">0</span>
+					<span id="delete">删除</span>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			var pwd=document.getElementById('pwd')
+			var box2=document.getElementById('box2')
+			var insert=document.getElementById('insert')
+			
+			function Open(){
+				pwd.style.display='block'
+			}
+			
+			function Close(){
+				pwd.style.display='none'
+			}
+			
+			var circle=box2.getElementsByTagName('span')
+			var num=insert.getElementsByTagName('span')
+			
+			//密码存储与点击次数
+			var pwds='',count=0
+			
+			for(var i=0;i<num.length;i++){
+				if(i!=9 && i!=11){
+					num[i].onclick=function(){
+						txt=this.innerHTML
+						if(count<6){
+							var img = document.createElement('img');
+							img.src = 'circle.jpg'
+							img.style='position: absolute;left: 24px;top: 24px;'
+							circle[count].appendChild(img);
+							if(pwds == ''){
+								pwds = txt;
+							}else{
+								pwds += txt;
+							}
+							count++
+						}	
+					}	
+				}			
+				
+				//清空键
+				if(i==9){
+					num[i].onclick=function(){
+						for(var j=0;j<circle.length;j++){
+							circle[j].innerHTML='';
+							pwds='';
+							count=0;
+						}
+					}	
+				}
+				
+				//删除键
+				if(i==11){
+					num[i].onclick=function(){
+						if(count>=1){
+							circle[count-1].innerHTML='';
+							pwds = pwds.substring(0, pwds.length - 1);
+							count--;
+						}
+					}
+				}
+				
+				//外面的清空按钮
+				var clear=document.getElementById('clearAll')
+				clear.onclick = function(){
+					for(var j=0;j<circle.length;j++){
+						circle[j].innerHTML = '';
+					}
+					pwds = '';
+					count = 0;
+				}		
+			}
+		</script>
+	</body>
+</html>
