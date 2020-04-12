@@ -19,8 +19,8 @@
             right: 0;
 		}
 		div.box {
-			width: 430px;
-			height: 430px;
+			width: 360px;
+			height: 500px;
 			overflow: hidden;
 		}
 
@@ -45,7 +45,7 @@
 		var box = document.getElementsByClassName('box')[0];
 		var img = document.getElementsByTagName('img')[0];
 		// 设置box的高度初始值
-		var height = 430;
+		var height = 500;
 		var timer;
 		var timer1;
 		var flag = true;
@@ -82,16 +82,15 @@
 			clearInterval(timer)
 			clearInterval(timer1)
 			timer1 = setInterval(function () {
-				if (height <= 420) {
+				if (height <= 490) {
 					height += 10;
 				} else {
 					clearInterval(timer1)
-					height = 430;
+					height = 500;
 				}
 				console.log(height)
 				box.style.height = height + 'px';
 			}, 50)
-
 		}
 	</script>
 </body>
